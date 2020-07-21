@@ -28,5 +28,7 @@ public func configure(_ app: Application) throws {
     try app.queues.startInProcessJobs(on: .default)
     try app.queues.startScheduledJobs()
 
+    app.queues.schedule(MyScheduledJob()).minutely().at(0)
+
     try routes(app)
 }
