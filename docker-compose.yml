@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  db:
+    image: postgres:11
+    environment:
+      POSTGRES_USER: vapor_username
+      POSTGRES_DB: vapor_database
+      POSTGRES_PASSWORD: vapor_password
+    ports:
+      - 54321:5432
+  serve:
+    build:
+      context: .
+      dockerfile: web.Dockerfile
+    ports:
+      - "8080:80"
+    environment:
+      ENVIRONMENT: development
+    env_file:
+      - .env
+    depends_on:
+      - "db"
