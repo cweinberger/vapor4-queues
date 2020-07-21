@@ -25,10 +25,10 @@ public func configure(_ app: Application) throws {
     app.queues.add(OutsideJob())
     app.queues.add(InsideJob())
 
+    app.queues.schedule(MyScheduledJob()).everySecond()
+
     try app.queues.startInProcessJobs(on: .default)
     try app.queues.startScheduledJobs()
-
-    app.queues.schedule(MyScheduledJob()).minutely().at(0)
 
     try routes(app)
 }
